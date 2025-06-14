@@ -10,5 +10,18 @@ export function signup({ email, password }) {
       email: email,
       password: password,
     }),
-  });
+  }).then((res) => res.json());
+}
+
+export function signin({ email, password }) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  }).then((res) => res.json());
 }

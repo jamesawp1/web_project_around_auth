@@ -1,0 +1,55 @@
+import { Link } from "react-router-dom";
+import { useState } from "react";
+
+export default function Register({ onLogin }) {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    onLogin(data);
+  };
+
+  return (
+    <>
+      <form className="form" name="login-form" onSubmit={handleSubmit}>
+        <h1 className="form__title">Entrar</h1>
+        <div className="form__inputs">
+          <input
+            name="email"
+            className="form__input"
+            type="email"
+            placeholder="E-mail"
+            value={data.email}
+            onChange={handleChange}
+          />
+          <input
+            name="password"
+            className="form__input"
+            type="password"
+            placeholder="Senha"
+            value={data.password}
+            onChange={handleChange}
+          />
+        </div>
+        <button className="form__submit-button" type="submit">
+          Inscrever-se
+        </button>
+        <Link className="form__link">
+          Ainda não é membro? Inscreva-se aqui!
+        </Link>
+      </form>
+    </>
+  );
+}

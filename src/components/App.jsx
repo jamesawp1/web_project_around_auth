@@ -2,6 +2,7 @@ import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
 import Register from "./Register/Register.jsx";
+import Login from "./Login/Login.jsx";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { api } from "../utils/api.js";
@@ -113,16 +114,22 @@ function App() {
       });
   }
 
-  async function handleUserSingup(data) {
+  async function handleUserSignup(data) {
     auth
       .signup(data)
-      .then((res) => {
-        console.log(res);
-        return res.json();
+      .then((userInfo) => {
+        console.log(userInfo);
       })
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  async function handleUserSignin(data) {
+    auth
+      .signin(data)
+      .then((userInfo) => console.log(userInfo))
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -161,7 +168,17 @@ function App() {
             element={
               <>
                 <Header />
-                <Register onRegister={handleUserSingup} />
+                <Register onRegister={handleUserSignup} />
+              </>
+            }
+          />
+
+          <Route
+            path="/signin"
+            element={
+              <>
+                <Header />
+                <Login onLogin={handleUserSignin} />
               </>
             }
           />
