@@ -142,7 +142,6 @@ function App() {
 
   async function handleCheckToken() {
     const token = JSON.parse(localStorage.getItem("jwt"));
-    console.log(token);
 
     if (!token) {
       setLoggedin(false);
@@ -151,7 +150,7 @@ function App() {
     }
 
     await auth
-      .checkToken(token)
+      .checkToken(token.token)
       .then(() => {
         setLoggedin(true);
         navigate("/");
