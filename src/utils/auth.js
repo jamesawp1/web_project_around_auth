@@ -25,3 +25,13 @@ export function signin({ email, password }) {
     }),
   }).then((res) => res.json());
 }
+
+export function checkToken(token) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
+}

@@ -119,7 +119,7 @@ function App() {
   }
 
   async function handleUserSignup(data) {
-    auth
+    await auth
       .signup(data)
       .then((userInfo) => {
         console.log(userInfo);
@@ -130,11 +130,38 @@ function App() {
   }
 
   async function handleUserSignin(data) {
-    auth
+    await auth
       .signin(data)
-      .then((userInfo) => console.log(userInfo))
+      .then((userToken) => {
+        localStorage.setItem("jwt", JSON.stringify(userToken));
+        setLoggedin(true);
+        navigate("/");
+      })
       .catch((err) => console.log(err));
   }
+
+  async function handleCheckToken() {
+    const token = JSON.parse(localStorage.getItem("jwt"));
+    console.log(token);
+
+    if (!token) {
+      setLoggedin(false);
+      navigate("/signin");
+      return;
+    }
+
+    await auth
+      .checkToken(token)
+      .then(() => {
+        setLoggedin(true);
+        navigate("/");
+      })
+      .catch((err) => console.log(`ERRO AQUI: ${err}`));
+  }
+
+  useEffect(() => {
+    handleCheckToken();
+  }, []);
 
   return (
     <>

@@ -46,7 +46,7 @@ export default function Register({ onLogin }) {
         <button className="form__submit-button" type="submit">
           Inscrever-se
         </button>
-        <Link className="form__link">
+        <Link to="/signup" className="form__link">
           Ainda não é membro? Inscreva-se aqui!
         </Link>
       </form>
