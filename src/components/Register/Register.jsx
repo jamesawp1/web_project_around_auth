@@ -1,7 +1,29 @@
-export default function Register() {
+import { Link } from "react-router-dom";
+import { useState } from "react";
+
+export default function Register({ onRegister }) {
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+
+    onRegister(data);
+  };
+
   return (
     <>
-      <form name="register-form" className="form">
+      <form name="register-form" className="form" onSubmit={handleSubmit}>
         <h1 className="form__title">Inscrever-se</h1>
         <div className="form__inputs">
           <input
@@ -9,18 +31,22 @@ export default function Register() {
             className="form__input"
             type="email"
             placeholder="E-mail"
+            value={data.email}
+            onChange={handleChange}
           />
           <input
             name="password"
             className="form__input"
             type="password"
             placeholder="Senha"
+            value={data.password}
+            onChange={handleChange}
           />
         </div>
         <button className="form__submit-button" type="submit">
           Inscrever-se
         </button>
-        <p className="form__link">Já é um membro? Faça o login aqui!</p>
+        <Link className="form__link">Já é um membro? Faça o login aqui!</Link>
       </form>
     </>
   );

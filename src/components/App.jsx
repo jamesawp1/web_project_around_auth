@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import * as auth from "../utils/auth.js";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -112,6 +113,18 @@ function App() {
       });
   }
 
+  async function handleUserSingup(data) {
+    auth
+      .signup(data)
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <>
       <div className="page">
@@ -144,11 +157,11 @@ function App() {
           />
 
           <Route
-            path="/register"
+            path="/signup"
             element={
               <>
                 <Header />
-                <Register />
+                <Register onRegister={handleUserSingup} />
               </>
             }
           />
