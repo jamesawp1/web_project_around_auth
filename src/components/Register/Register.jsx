@@ -1,7 +1,7 @@
 export default function Register() {
   return (
     <>
-      <form name="register-form" className="form" noValidate>
+      <form name="register-form" className="form">
         <h1 className="form__title">Inscrever-se</h1>
         <div className="form__inputs">
           <input
@@ -20,7 +20,7 @@ export default function Register() {
         <button className="form__submit-button" type="submit">
           Inscrever-se
         </button>
-        <p className="form__text">Já é um membro? Faça o login aqui!</p>
+        <p className="form__link">Já é um membro? Faça o login aqui!</p>
       </form>
     </>
   );

@@ -1,7 +1,9 @@
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
 import Footer from "./Footer/Footer.jsx";
+import Register from "./Register/Register.jsx";
 import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
@@ -113,27 +115,44 @@ function App() {
   return (
     <>
       <div className="page">
-        <CurrentUserContext.Provider
-          value={{
-            currentUser,
-            handleUpdateUser,
-            handleUpdateAvatar,
-          }}
-        >
-          <Header></Header>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <CurrentUserContext.Provider
+                  value={{
+                    currentUser,
+                    handleUpdateUser,
+                    handleUpdateAvatar,
+                  }}
+                >
+                  <Header />
+                  <Main
+                    popup={popup}
+                    onOpenPopup={handleOpenPopup}
+                    onClosePopup={handleClosePopup}
+                    cards={cards}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDelete}
+                    onAddPlaceSubmit={handleAddPlaceSubmit}
+                  ></Main>
+                  <Footer />
+                </CurrentUserContext.Provider>
+              </>
+            }
+          />
 
-          <Main
-            popup={popup}
-            onOpenPopup={handleOpenPopup}
-            onClosePopup={handleClosePopup}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            onAddPlaceSubmit={handleAddPlaceSubmit}
-          ></Main>
-
-          <Footer></Footer>
-        </CurrentUserContext.Provider>
+          <Route
+            path="/register"
+            element={
+              <>
+                <Header />
+                <Register />
+              </>
+            }
+          />
+        </Routes>
       </div>
     </>
   );
