@@ -4,15 +4,19 @@ import Footer from "./Footer/Footer.jsx";
 import Register from "./Register/Register.jsx";
 import Login from "./Login/Login.jsx";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import * as auth from "../utils/auth.js";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [popup, setPopup] = useState(null);
+  const [loggedin, setLoggedin] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -139,7 +143,7 @@ function App() {
           <Route
             path="/"
             element={
-              <>
+              <ProtectedRoute isLoggedin={loggedin}>
                 <CurrentUserContext.Provider
                   value={{
                     currentUser,
@@ -159,7 +163,7 @@ function App() {
                   ></Main>
                   <Footer />
                 </CurrentUserContext.Provider>
-              </>
+              </ProtectedRoute>
             }
           />
 
