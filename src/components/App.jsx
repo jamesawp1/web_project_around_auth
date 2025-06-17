@@ -176,6 +176,12 @@ function App() {
     handleCheckToken();
   }, []);
 
+  function handleLogout() {
+    localStorage.removeItem("jwt");
+    setLoggedin(false);
+    navigate("/signin");
+  }
+
   return (
     <>
       <div className="page">
@@ -191,7 +197,7 @@ function App() {
                     handleUpdateAvatar,
                   }}
                 >
-                  <Header emailText={data} />
+                  <Header emailText={data} onLogout={handleLogout} />
                   <Main
                     popup={popup}
                     onOpenPopup={handleOpenPopup}

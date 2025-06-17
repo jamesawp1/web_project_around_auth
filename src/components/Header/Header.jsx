@@ -1,6 +1,6 @@
 import logo from "../../images/header__image.png";
 
-export default function Header({ emailText }) {
+export default function Header({ emailText, onLogout }) {
   return (
     <header className="header">
       <img
@@ -14,7 +14,11 @@ export default function Header({ emailText }) {
         >
           {emailText}
         </h3>
-        <button className="header__button">Sair</button>
+        {onLogout && (
+          <button onClick={onLogout} className="header__button">
+            Sair
+          </button>
+        )}
       </div>
     </header>
   );
