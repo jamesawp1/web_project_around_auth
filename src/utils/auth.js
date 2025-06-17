@@ -10,7 +10,12 @@ export function signup({ email, password }) {
       email: email,
       password: password,
     }),
-  }).then((res) => res.json());
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(new Error("Erro ao registrar usuário"));
+  });
 }
 
 export function signin({ email, password }) {

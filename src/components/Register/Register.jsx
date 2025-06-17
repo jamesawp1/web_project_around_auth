@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Popup from "../Main/components/Popup/Popup";
 
-export default function Register({ onRegister }) {
+export default function Register({ onRegister, popup }) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -50,6 +51,8 @@ export default function Register({ onRegister }) {
           Já é um membro? Faça o login aqui!
         </Link>
       </form>
+
+      {popup && <Popup title="tooltip">{popup.children}</Popup>}
     </>
   );
 }

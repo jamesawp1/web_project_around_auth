@@ -17,7 +17,15 @@ export default function Popup(props) {
           onClick={onClose}
           src={closePopupImg}
         />
-        {title && <h3 className="popup__title">{title}</h3>}
+        {title && (
+          <h3
+            className={`popup__title ${
+              title === "tooltip" ? "popup__title-hidden" : ""
+            }`}
+          >
+            {title}
+          </h3>
+        )}
         {children}
       </div>
     </div>

@@ -9,6 +9,7 @@ import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import * as auth from "../utils/auth.js";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
+import InfoTooltip from "./Main/components/Popup/components/InfoTooltip/InfoTooltip.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -122,10 +123,22 @@ function App() {
     await auth
       .signup(data)
       .then((userInfo) => {
-        console.log(userInfo);
+        if (userInfo) {
+          console.log(userInfo);
+          const infoTooltipTrue = {
+            children: <InfoTooltip registerStatus={true} />,
+          };
+          setPopup(infoTooltipTrue);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        if (err) {
+          console.log(err);
+          const infoTooltipFalse = {
+            children: <InfoTooltip registerStatus={false} />,
+          };
+          setPopup(infoTooltipFalse);
+        }
       });
   }
 
@@ -198,7 +211,7 @@ function App() {
             element={
               <>
                 <Header />
-                <Register onRegister={handleUserSignup} />
+                <Register onRegister={handleUserSignup} popup={popup} />
               </>
             }
           />
