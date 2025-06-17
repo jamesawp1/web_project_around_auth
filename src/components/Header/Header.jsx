@@ -9,7 +9,11 @@ export default function Header({ emailText }) {
         alt="Logo do site Around The Us."
       />
       <div className="header__wrapper">
-        <h3 className="header__message"></h3>
+        <h3
+          className={emailText ? "header__message" : "header__message-hidden"}
+        >
+          {emailText}
+        </h3>
         <button className="header__button">Sair</button>
       </div>
     </header>

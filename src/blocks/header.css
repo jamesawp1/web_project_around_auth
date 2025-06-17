@@ -25,6 +25,10 @@
   color: #fff;
 }
 
+.header__message-hidden {
+  display: none;
+}
+
 .header__button {
   background-color: transparent;
   border: none;

@@ -16,6 +16,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [popup, setPopup] = useState(null);
   const [loggedin, setLoggedin] = useState(false);
+  const [data, setData] = useState("");
 
   const navigate = useNavigate();
 
@@ -124,7 +125,6 @@ function App() {
       .signup(data)
       .then((userInfo) => {
         if (userInfo) {
-          console.log(userInfo);
           const infoTooltipTrue = {
             children: <InfoTooltip registerStatus={true} />,
           };
@@ -133,7 +133,6 @@ function App() {
       })
       .catch((err) => {
         if (err) {
-          console.log(err);
           const infoTooltipFalse = {
             children: <InfoTooltip registerStatus={false} />,
           };
@@ -148,6 +147,7 @@ function App() {
       .then((userToken) => {
         localStorage.setItem("jwt", JSON.stringify(userToken));
         setLoggedin(true);
+        setData(data.email);
         navigate("/");
       })
       .catch((err) => console.log(err));
@@ -164,7 +164,8 @@ function App() {
 
     await auth
       .checkToken(token.token)
-      .then(() => {
+      .then((userData) => {
+        setData(userData.data.email);
         setLoggedin(true);
         navigate("/");
       })
@@ -190,7 +191,7 @@ function App() {
                     handleUpdateAvatar,
                   }}
                 >
-                  <Header />
+                  <Header emailText={data} />
                   <Main
                     popup={popup}
                     onOpenPopup={handleOpenPopup}
@@ -210,7 +211,7 @@ function App() {
             path="/signup"
             element={
               <>
-                <Header />
+                <Header emailText={"Inscreva-se"} />
                 <Register
                   onRegister={handleUserSignup}
                   popup={popup}
@@ -224,7 +225,7 @@ function App() {
             path="/signin"
             element={
               <>
-                <Header />
+                <Header emailText={"Faça o login"} />
                 <Login onLogin={handleUserSignin} />
               </>
             }
