@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Popup from "../Main/components/Popup/Popup";
 
-export default function Register({ onRegister, popup }) {
+export default function Register({ onRegister, popup, onClosePopup }) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -15,6 +15,10 @@ export default function Register({ onRegister, popup }) {
       [name]: value,
     }));
   };
+
+  function handleCloseClick() {
+    onClosePopup();
+  }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -52,7 +56,11 @@ export default function Register({ onRegister, popup }) {
         </Link>
       </form>
 
-      {popup && <Popup title="tooltip">{popup.children}</Popup>}
+      {popup && (
+        <Popup title="tooltip" onClose={handleCloseClick}>
+          {popup.children}
+        </Popup>
+      )}
     </>
   );
 }

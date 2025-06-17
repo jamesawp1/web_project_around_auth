@@ -211,7 +211,11 @@ function App() {
             element={
               <>
                 <Header />
-                <Register onRegister={handleUserSignup} popup={popup} />
+                <Register
+                  onRegister={handleUserSignup}
+                  popup={popup}
+                  onClosePopup={handleClosePopup}
+                />
               </>
             }
           />
