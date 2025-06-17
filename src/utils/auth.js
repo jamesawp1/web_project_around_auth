@@ -14,7 +14,9 @@ export function signup({ email, password }) {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(new Error("Erro ao registrar usuário"));
+    return Promise.reject(
+      new Error(`Erro na requisição. Código: ${res.status}.`)
+    );
   });
 }
 
@@ -28,7 +30,14 @@ export function signin({ email, password }) {
       email: email,
       password: password,
     }),
-  }).then((res) => res.json());
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(
+      new Error(`Erro na requisição. Código: ${res.status}.`)
+    );
+  });
 }
 
 export function checkToken(token) {
@@ -38,5 +47,12 @@ export function checkToken(token) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  }).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(
+      new Error(`Erro na requisição. Código: ${res.status}.`)
+    );
+  });
 }
