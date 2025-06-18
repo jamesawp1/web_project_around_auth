@@ -10,6 +10,7 @@ export default function Header({ emailText, onLogout }) {
 
     headerRef.current.style.marginTop = isChecked ? "142px" : "45px";
     headerRef.current.style.borderTop = isChecked ? "1px solid #545454" : "";
+    headerRef.current.style.paddingTop = isChecked ? "27px" : "0";
   };
 
   return (

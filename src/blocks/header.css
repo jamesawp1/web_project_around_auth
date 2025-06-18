@@ -81,12 +81,4 @@
     pointer-events: auto;
     display: flex;
   }
-
-  .header__image {
-    margin: 27px 0 32px;
-  }
-
-  .header__menu_label {
-    margin: 27px 0 32px;
-  }
 }
