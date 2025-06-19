@@ -57,6 +57,17 @@
     display: block;
   }
 
+  .header__wrapper-notLogged {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    column-gap: 56px;
+    margin: 0 0 41px;
+    position: static;
+    opacity: 1;
+    row-gap: 0px;
+  }
+
   .header__wrapper {
     position: absolute;
     top: 0;

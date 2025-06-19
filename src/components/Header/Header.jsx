@@ -3,7 +3,7 @@ import menuLogo from "../../images/menuLogo.svg";
 import menuLogoClose from "../../images/menuLogoClose.svg";
 import { useRef, useState } from "react";
 
-export default function Header({ emailText, onLogout }) {
+export default function Header({ emailText, onLogout, isLogged }) {
   const [checked, setChecked] = useState(false);
   const headerRef = useRef();
   const inputRef = useRef();
@@ -25,21 +25,29 @@ export default function Header({ emailText, onLogout }) {
         src={logo}
         alt="Logo do site Around The Us."
       />
-      <input
-        type="checkbox"
-        id="menu-toggle"
-        className="header__menu"
-        onChange={handleChange}
-        ref={inputRef}
-      />
-      <label htmlFor="menu-toggle" className="header__menu_label">
-        <img
-          className="header__menu_label-icon"
-          alt="Logo do menu."
-          src={imageSource}
-        />
-      </label>
-      <div className="header__wrapper">
+      {isLogged && (
+        <>
+          <input
+            type="checkbox"
+            id="menu-toggle"
+            className="header__menu"
+            onChange={handleChange}
+            ref={inputRef}
+          />
+          <label htmlFor="menu-toggle" className="header__menu_label">
+            <img
+              className="header__menu_label-icon"
+              alt="Logo do menu."
+              src={imageSource}
+            />
+          </label>
+        </>
+      )}
+      <div
+        className={`${
+          isLogged ? "header__wrapper" : "header__wrapper-notLogged"
+        }`}
+      >
         <h3
           className={emailText ? "header__message" : "header__message-hidden"}
         >

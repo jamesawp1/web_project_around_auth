@@ -197,7 +197,11 @@ function App() {
                     handleUpdateAvatar,
                   }}
                 >
-                  <Header emailText={data} onLogout={handleLogout} />
+                  <Header
+                    emailText={data}
+                    onLogout={handleLogout}
+                    isLogged={loggedin}
+                  />
                   <Main
                     popup={popup}
                     onOpenPopup={handleOpenPopup}
