@@ -1,17 +1,22 @@
 import logo from "../../images/header__image.png";
 import menuLogo from "../../images/menuLogo.svg";
-import { useRef } from "react";
+import menuLogoClose from "../../images/menuLogoClose.svg";
+import { useRef, useState } from "react";
 
 export default function Header({ emailText, onLogout }) {
+  const [checked, setChecked] = useState(false);
   const headerRef = useRef();
+  const inputRef = useRef();
 
   const handleChange = (evt) => {
-    const isChecked = evt.target.checked;
+    setChecked(evt.target.checked);
 
-    headerRef.current.style.marginTop = isChecked ? "142px" : "45px";
-    headerRef.current.style.borderTop = isChecked ? "1px solid #545454" : "";
-    headerRef.current.style.paddingTop = isChecked ? "27px" : "0";
+    headerRef.current.style.marginTop = checked ? "45px" : "142px";
+    headerRef.current.style.borderTop = checked ? "" : "1px solid #545454";
+    headerRef.current.style.paddingTop = checked ? "0" : "27px";
   };
+
+  const imageSource = checked ? menuLogoClose : menuLogo;
 
   return (
     <header className="header" ref={headerRef}>
@@ -25,12 +30,13 @@ export default function Header({ emailText, onLogout }) {
         id="menu-toggle"
         className="header__menu"
         onChange={handleChange}
+        ref={inputRef}
       />
       <label htmlFor="menu-toggle" className="header__menu_label">
         <img
           className="header__menu_label-icon"
           alt="Logo do menu."
-          src={menuLogo}
+          src={imageSource}
         />
       </label>
       <div className="header__wrapper">
