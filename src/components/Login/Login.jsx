@@ -33,6 +33,9 @@ export default function Register({ onLogin }) {
             placeholder="E-mail"
             value={data.email}
             onChange={handleChange}
+            required
+            maxLength="50"
+            minLength="5"
           />
           <input
             name="password"
@@ -41,6 +44,9 @@ export default function Register({ onLogin }) {
             placeholder="Senha"
             value={data.password}
             onChange={handleChange}
+            required
+            maxLength="20"
+            minLength="2"
           />
         </div>
         <button className="form__submit-button" type="submit">
