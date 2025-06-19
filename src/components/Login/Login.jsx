@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Popup from "../Main/components/Popup/Popup";
 
-export default function Register({ onLogin }) {
+export default function Register({ onLogin, popup, onClosePopup }) {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -20,6 +21,10 @@ export default function Register({ onLogin }) {
 
     onLogin(data);
   };
+
+  function handleCloseClick() {
+    onClosePopup();
+  }
 
   return (
     <>
@@ -56,6 +61,12 @@ export default function Register({ onLogin }) {
           Ainda não é membro? Inscreva-se aqui!
         </Link>
       </form>
+
+      {popup && (
+        <Popup title="tooltip" onClose={handleCloseClick}>
+          {popup.children}
+        </Popup>
+      )}
     </>
   );
 }

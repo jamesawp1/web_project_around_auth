@@ -150,7 +150,14 @@ function App() {
         setData(data.email);
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err) {
+          const infoTooltipFalse = {
+            children: <InfoTooltip registerStatus={false} />,
+          };
+          setPopup(infoTooltipFalse);
+        }
+      });
   }
 
   async function handleCheckToken() {
@@ -236,7 +243,7 @@ function App() {
             element={
               <>
                 <Header emailText={"Faça o login"} />
-                <Login onLogin={handleUserSignin} />
+                <Login onLogin={handleUserSignin} popup={popup} onClosePopup={handleClosePopup} />
               </>
             }
           />
