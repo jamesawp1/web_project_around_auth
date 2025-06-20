@@ -1,18 +1,34 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Popup from "../Main/components/Popup/Popup";
+import FormValidator from "../FormValidator/FormValidator";
 
 export default function Register({ onRegister, popup, onClosePopup }) {
   const [data, setData] = useState({
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
+  const [valids, setValids] = useState({
+    email: true,
+    password: true,
+  });
 
   const handleChange = (evt) => {
-    const { name, value } = evt.target;
+    const { name, value, validity, validationMessage } = evt.target;
     setData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validity.valid ? "" : validationMessage,
+    }));
+
+    setValids((prev) => ({
+      ...prev,
+      [name]: validity.valid,
     }));
   };
 
@@ -33,7 +49,9 @@ export default function Register({ onRegister, popup, onClosePopup }) {
         <div className="form__inputs">
           <input
             name="email"
-            className="form__input"
+            className={`form__input ${
+              valids.email ? "" : "form__input_type_error"
+            }`}
             type="email"
             placeholder="E-mail"
             value={data.email}
@@ -42,9 +60,12 @@ export default function Register({ onRegister, popup, onClosePopup }) {
             maxLength="50"
             minLength="5"
           />
+          <FormValidator message={errors.email} isValid={valids.email} />
           <input
             name="password"
-            className="form__input"
+            className={`form__input ${
+              valids.password ? "" : "form__input_type_error"
+            }`}
             type="password"
             placeholder="Senha"
             value={data.password}
@@ -53,6 +74,7 @@ export default function Register({ onRegister, popup, onClosePopup }) {
             maxLength="20"
             minLength="2"
           />
+          <FormValidator message={errors.password} isValid={valids.password} />
         </div>
         <button className="form__submit-button" type="submit">
           Inscrever-se
