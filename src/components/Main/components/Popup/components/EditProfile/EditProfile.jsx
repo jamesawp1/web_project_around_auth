@@ -4,21 +4,23 @@ import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContex
 export default function EditProfile() {
   const userContext = useContext(CurrentUserContext);
   const { currentUser, handleUpdateUser } = userContext;
-  const [name, setName] = useState(currentUser.name);
-  const [description, setDescription] = useState(currentUser.about);
+  const [data, setData] = useState({
+    name: currentUser.name,
+    about: currentUser.about,
+  });
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
+  const handleChange = (evt) => {
+    const { name, value, validity, validationMessage } = evt.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    handleUpdateUser({ name, about: description });
+    handleUpdateUser(data);
   };
 
   return (
@@ -34,12 +36,12 @@ export default function EditProfile() {
           id="profile-name"
           className="popup__input popup__input_type_profile-name"
           type="text"
-          name="profile-name"
+          name="name"
           placeholder="Nome"
           minLength="2"
           maxLength="40"
-          value={name}
-          onChange={handleNameChange}
+          value={data.name}
+          onChange={handleChange}
           required
         />
         <span
@@ -52,12 +54,12 @@ export default function EditProfile() {
           id="profession-name"
           className="popup__input popup__input_type_profession-name"
           type="text"
-          name="profession-name"
+          name="about"
           placeholder="Sobre Mim"
           minLength="2"
           maxLength="200"
-          value={description}
-          onChange={handleDescriptionChange}
+          value={data.about}
+          onChange={handleChange}
           required
         />
         <span
