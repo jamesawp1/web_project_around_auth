@@ -2,21 +2,24 @@ import { useState } from "react";
 
 export default function NewCard(props) {
   const { onAddCardSubmit } = props;
-  const [name, setName] = useState([]);
-  const [link, setLink] = useState([]);
 
-  function handleNameChange(event) {
-    setName(event.target.value);
-  }
+  const [data, setData] = useState({
+    name: "",
+    link: "",
+  });
 
-  function handleLinkChange(event) {
-    setLink(event.target.value);
+  function handleChange(evt) {
+    const { name, value, validity, validationMessage } = evt.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    onAddCardSubmit({ name, link });
+    onAddCardSubmit(data);
   }
 
   return (
@@ -33,11 +36,11 @@ export default function NewCard(props) {
           className="popup__input popup__input_type_card-name"
           maxLength="30"
           minLength="1"
-          name="card-name"
+          name="name"
           placeholder="Título"
           required
           type="text"
-          onChange={handleNameChange}
+          onChange={handleChange}
         />
         <span
           id="card-name-error"
@@ -48,11 +51,11 @@ export default function NewCard(props) {
         <input
           id="card-link"
           className="popup__input popup__input_type_url"
-          name="card-link"
+          name="link"
           placeholder="URL da imagem"
           type="url"
           required
-          onChange={handleLinkChange}
+          onChange={handleChange}
         />
         <span
           id="card-link-error"
