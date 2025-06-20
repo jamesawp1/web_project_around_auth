@@ -1,9 +1,15 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContext.js";
+import FormValidator from "../../../../../FormValidator/FormValidator.jsx";
 
 export default function EditAvatar() {
   const userContext = useContext(CurrentUserContext);
   const { handleUpdateAvatar } = userContext;
+
+  const [errors, setErrors] = useState({});
+  const [valids, setValids] = useState({
+    link: true,
+  });
 
   const avatarRef = useRef();
 
@@ -14,6 +20,20 @@ export default function EditAvatar() {
       avatar: avatarRef.current.value,
     });
   }
+
+  const handleChange = (evt) => {
+    const { name, validity, validationMessage } = evt.target;
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validity.valid ? "" : validationMessage,
+    }));
+
+    setValids((prev) => ({
+      ...prev,
+      [name]: validity.valid,
+    }));
+  };
 
   return (
     <form
@@ -26,17 +46,17 @@ export default function EditAvatar() {
       <label className="popup__field">
         <input
           id="picture-link"
-          className="popup__input popup__input_type_picture-link"
-          name="picture-link"
+          className={`popup__input ${
+            valids.link ? "" : "popup__input_type_error"
+          }`}
+          name="link"
           placeholder="URL da fotografia"
           type="url"
           required
           ref={avatarRef}
+          onChange={handleChange}
         />
-        <span
-          id="picture-link-error"
-          className="popup__error picture-link-error"
-        ></span>
+        <FormValidator message={errors.link} isValid={valids.link} />
       </label>
       <button type="submit" className="button popup__button">
         Salvar
