@@ -83,6 +83,10 @@
   border-bottom: 1px solid #000;
 }
 
+.popup__input:focus {
+  outline: none;
+}
+
 .popup__input:nth-child(2) {
   margin: 29.74px 0 48px;
 }

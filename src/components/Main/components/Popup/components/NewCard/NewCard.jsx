@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FormValidator from "../../../../../FormValidator/FormValidator";
 
 export default function NewCard(props) {
   const { onAddCardSubmit } = props;
@@ -7,12 +8,27 @@ export default function NewCard(props) {
     name: "",
     link: "",
   });
+  const [errors, setErrors] = useState({});
+  const [valids, setValids] = useState({
+    name: true,
+    link: true,
+  });
 
   function handleChange(evt) {
     const { name, value, validity, validationMessage } = evt.target;
     setData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validity.valid ? "" : validationMessage,
+    }));
+
+    setValids((prev) => ({
+      ...prev,
+      [name]: validity.valid,
     }));
   }
 
@@ -33,7 +49,9 @@ export default function NewCard(props) {
       <label className="popup__field">
         <input
           id="card-name"
-          className="popup__input popup__input_type_card-name"
+          className={`popup__input ${
+            valids.name ? "" : "popup__input_type_error"
+          }`}
           maxLength="30"
           minLength="1"
           name="name"
@@ -42,25 +60,21 @@ export default function NewCard(props) {
           type="text"
           onChange={handleChange}
         />
-        <span
-          id="card-name-error"
-          className="popup__error card-name-error"
-        ></span>
+        <FormValidator message={errors.name} isValid={valids.name} />
       </label>
       <label className="popup__field">
         <input
           id="card-link"
-          className="popup__input popup__input_type_url"
+          className={`popup__input ${
+            valids.link ? "" : "popup__input_type_error"
+          }`}
           name="link"
           placeholder="URL da imagem"
           type="url"
           required
           onChange={handleChange}
         />
-        <span
-          id="card-link-error"
-          className="popup__error card-link-error"
-        ></span>
+        <FormValidator message={errors.link} isValid={valids.link} />
       </label>
       <button type="submit" className="button popup__button">
         Salvar
