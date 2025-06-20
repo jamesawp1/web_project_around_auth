@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContext.js";
+import FormValidator from "../../../../../FormValidator/FormValidator.jsx";
 
 export default function EditProfile() {
   const userContext = useContext(CurrentUserContext);
@@ -8,12 +9,27 @@ export default function EditProfile() {
     name: currentUser.name,
     about: currentUser.about,
   });
+  const [errors, setErrors] = useState({});
+  const [valids, setValids] = useState({
+    name: true,
+    about: true,
+  });
 
   const handleChange = (evt) => {
     const { name, value, validity, validationMessage } = evt.target;
     setData((prevData) => ({
       ...prevData,
       [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validity.valid ? "" : validationMessage,
+    }));
+
+    setValids((prev) => ({
+      ...prev,
+      [name]: validity.valid,
     }));
   };
 
@@ -34,7 +50,9 @@ export default function EditProfile() {
       <label className="popup__field">
         <input
           id="profile-name"
-          className="popup__input popup__input_type_profile-name"
+          className={`popup__input ${
+            valids.name ? "" : "popup__input_type_error"
+          }`}
           type="text"
           name="name"
           placeholder="Nome"
@@ -44,15 +62,14 @@ export default function EditProfile() {
           onChange={handleChange}
           required
         />
-        <span
-          id="profile-name-error"
-          className="popup__error profile-name-error"
-        ></span>
+        <FormValidator message={errors.name} isValid={valids.name} />
       </label>
       <label className="popup__field">
         <input
           id="profession-name"
-          className="popup__input popup__input_type_profession-name"
+          className={`popup__input ${
+            valids.about ? "" : "popup__input_type_error"
+          }`}
           type="text"
           name="about"
           placeholder="Sobre Mim"
@@ -62,10 +79,7 @@ export default function EditProfile() {
           onChange={handleChange}
           required
         />
-        <span
-          id="profession-name-error"
-          className="popup__error profession-name-error"
-        ></span>
+        <FormValidator message={errors.about} isValid={valids.about} />
       </label>
       <button id="save-button" className="button popup__button" type="submit">
         Salvar
