@@ -77,7 +77,7 @@ export default function Register({ onLogin, popup, onClosePopup }) {
           <FormValidator message={errors.password} isValid={valids.password} />
         </div>
         <button className="form__submit-button" type="submit">
-          Inscrever-se
+          Entrar
         </button>
         <Link to="/signup" className="form__link">
           Ainda não é membro? Inscreva-se aqui!
