@@ -129,6 +129,7 @@ function App() {
             children: <InfoTooltip registerStatus={true} />,
           };
           setPopup(infoTooltipTrue);
+          navigate("/signin");
         }
       })
       .catch((err) => {
@@ -138,9 +139,6 @@ function App() {
           };
           setPopup(infoTooltipFalse);
         }
-      })
-      .finally(() => {
-        navigate("/signin");
       });
   }
 
