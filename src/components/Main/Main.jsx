@@ -54,14 +54,14 @@ export default function Main(props) {
             <h1 id="profile-name" className="profile__title">
               {currentUser.name}
             </h1>
-            <button
-              className="profile__edit-button"
-              onClick={() => handleOpenClick(editProfilePopup)}
-            ></button>
+            <h2 id="profile-role" className="profile__subtitle">
+              {currentUser.about}
+            </h2>
           </div>
-          <h2 id="profile-role" className="profile__subtitle">
-            {currentUser.about}
-          </h2>
+          <button
+            className="profile__edit-button"
+            onClick={() => handleOpenClick(editProfilePopup)}
+          ></button>
         </div>
         <button
           className="profile__add-button"
