@@ -138,6 +138,9 @@ function App() {
           };
           setPopup(infoTooltipFalse);
         }
+      })
+      .finally(() => {
+        navigate("/signin");
       });
   }
 
@@ -243,7 +246,11 @@ function App() {
             element={
               <>
                 <Header emailText={"Faça o login"} />
-                <Login onLogin={handleUserSignin} popup={popup} onClosePopup={handleClosePopup} />
+                <Login
+                  onLogin={handleUserSignin}
+                  popup={popup}
+                  onClosePopup={handleClosePopup}
+                />
               </>
             }
           />
