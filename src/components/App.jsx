@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { api } from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import * as auth from "../utils/auth.js";
+import { auth } from "../utils/auth.js";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute.jsx";
 import InfoTooltip from "./Main/components/Popup/components/InfoTooltip/InfoTooltip.jsx";
 
